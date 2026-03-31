@@ -1,13 +1,368 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MANGU PUBLISHING - Discover a universe of stories. Stream unlimited books, audiobooks, and exclusive videos anywhere, anytime.">
+  <meta name="keywords" content="books, publishing, audiobooks, reading, stories, literature">
+  <meta name="author" content="MANGU PUBLISHING">
+  <meta property="og:title" content="MANGU PUBLISHING - Full Experience">
+  <meta property="og:description" content="Discover a universe of stories. Stream unlimited books, audiobooks, and exclusive videos anywhere, anytime.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=1200&h=630&q=80">
+  <meta property="og:url" content="https://mangu-publishing.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>MANGU PUBLISHING — Hero Fix</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="enhancements.css">
+  <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+
+<body>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <!-- Progress Bar -->
+  <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- Offline indicator -->
+  <div class="offline-indicator" id="offlineIndicator">You are currently offline</div>
+
+  <!-- Cookie consent -->
+  <div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-text">
+      We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+    </div>
+    <div class="cookie-actions">
+      <button class="btn-cancel" id="cookieReject">Reject</button>
+      <button class="btn-submit" id="cookieAccept">Accept</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-content">
+      <div style="display:flex; align-items:center; gap:20px;">
+        <a href="#" class="logo" aria-label="MANGU PUBLISHING Home">
+          <div class="logo-icon"></div>
+          <span class="premium-text">MANGU PUBLISHING</span>
+        </a>
+        <nav class="nav-main" aria-label="Main navigation">
+          <div class="nav-item">
+            <a href="#" id="libraryNav">Library <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+            <div class="books-dropdown" id="libraryDropdown">
+              <a href="#">Books</a>
+              <a href="#">Comic Books</a>
+              <a href="#">Research Papers</a>
+              <a href="#">Tutorials</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="#" id="mediaNav">Media <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+            <div class="books-dropdown" id="mediaDropdown">
+              <a href="#">Audiobooks</a>
+              <a href="#">Films</a>
+              <a href="#">Animations</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="#" id="newsroomNav">Newsroom <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+            <div class="books-dropdown" id="newsroomDropdown">
+              <a href="#">News</a>
+              <a href="#">Events</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="search-container">
+          <i class="fas fa-search search-icon" aria-hidden="true"></i>
+          <input type="text" class="search-input" placeholder="Search books, authors, videos…" aria-label="Search" />
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle light/dark" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <div class="language-selector">
+          <button class="language-btn" id="languageBtn" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe" aria-hidden="true"></i> EN</button>
+          <div class="language-dropdown" id="languageDropdown" role="menu">
+            <div class="language-option" data-lang="en" role="menuitem">English</div>
+            <div class="language-option" data-lang="es" role="menuitem">Español</div>
+            <div class="language-option" data-lang="fr" role="menuitem">Français</div>
+            <div class="language-option" data-lang="de" role="menuitem">Deutsch</div>
+            <div class="language-option" data-lang="ja" role="menuitem">日本語</div>
+          </div>
+        </div>
+        <button class="header-icon" id="notifBell" title="Notifications" aria-label="Notifications"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
+        <button class="header-icon" title="Cart" aria-label="Shopping cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="profile-menu" id="profileMenu" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">A</div>
+          <i class="fas fa-caret-down" style="font-size:12px;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="#"><i class="fas fa-user"></i> My Profile</a>
+            <a href="#"><i class="fas fa-bookmark"></i> My Library</a>
+            <a href="#"><i class="fas fa-history"></i> Reading History</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="adminAccess"><i class="fas fa-shield-alt"></i> Admin Panel</a>
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero with Full Background Video -->
+  <section class="hero" id="main-content">
+    <!-- Video Background -->
+    <div class="hero-video-container">
+      <video id="heroBackgroundVideo" autoplay muted loop playsinline class="hero-background-video" preload="auto">
+        <source src="laps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay"></div>
+      <button id="heroVideoPause" class="hero-video-pause" aria-label="Pause background video">
+        <i class="fas fa-pause"></i>
+      </button>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-left">
+        <h1 class="hero-title text-balance">MANGU PUBLISHING</h1>
+        <p class="hero-subtitle text-balance">Discover a universe of stories. Stream unlimited books, audiobooks, and exclusive videos anywhere, anytime.</p>
+        <a href="#featured" class="hero-cta premium-btn"><i class="fas fa-play"></i> Start Reading Now</a>
+      </div>
+      
+      <!-- Empty right side since we have full background video -->
+      <div class="hero-right"></div>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section id="featured" class="featured-hero">
+    <div class="container">
+      <h1 class="header">Featured Book</h1>
+      
+      <div class="feature-card">
+        <div class="book-cover"></div>
+        
+        <div class="book-info">
+          <h2 class="book-title text-balance">The Midnight<br>Library</h2>
+          <p class="book-author">By Matt Haig</p>
+          
+          <div class="book-meta">
+            <span class="rating-number">★ 4.7</span>
+            <span>2024 Edition</span>
+            <span>📄 304 pages</span>
+            <span>Fiction</span>
+          </div>
+          
+          <p class="book-description text-balance">
+            Between life and death there is a library… Every book provides a chance to try another life you could have lived.
+          </p>
+          
+          <div class="star-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">(0 ratings)</span>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-read premium-btn" id="readNow">📖 Read Now</button>
+            <button class="btn btn-watch premium-btn" id="watchMovie">▶ Watch Movie</button>
+            <button class="btn btn-library premium-btn">📚 Add to Library</button>
+          </div>
+          
+          <div class="platform-links">
+            <button class="platform-btn apple">🍎 Apple Books</button>
+            <button class="platform-btn google">▶ Google Play</button>
+            <button class="platform-btn amazon">📦 Amazon</button>
+          </div>
+          
+          <div class="info-icons">
+            <div class="info-icon">🔗</div>
+            <div class="info-icon">ℹ</div>
+          </div>
+        </div>
+        
+        <div class="tv-section">
+          <div class="tv-frame">
+            <div class="tv-screen">
+              <div class="netflix-content">
+                <div class="movie-scene"></div>
+                <div class="characters-netflix">
+                  <div class="character-netflix character-main"></div>
+                  <div class="character-netflix character-side"></div>
+                </div>
+                <div class="netflix-ui">
+                  <div class="play-controls">
+                    <div class="play-btn"></div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                  </div>
+                  <div class="time-display">1:23:45</div>
+                </div>
+                <div class="screen-reflection"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending -->
+  <section class="trending-section">
+    <div class="trending-header">
+      <h2 class="trending-title">Trending Now</h2>
+      <span class="see-all">See all</span>
+    </div>
+    
+    <div class="carousel-container">
+      <button class="carousel-nav nav-prev" onclick="moveCarousel(-1)" aria-label="Previous books">‹</button>
+      <button class="carousel-nav nav-next" onclick="moveCarousel(1)" aria-label="Next books">›</button>
+      
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Card 1 -->
+        <div class="book-card will-change">
+          <div class="new-badge">NEW</div>
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4ebf0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+               alt="The Starlit Quest" class="book-cover" loading="lazy">
+          <div class="progress-bar"></div>
+          <div class="book-info">
+            <h3 class="book-title text-balance">The Starlit Quest</h3>
+            <div class="book-metadata">
+              <span class="match-rate">95% Match</span>
+              <span class="year">2025</span>
+              <span class="maturity-rating">16+</span>
+              <span class="length">400 pages</span>
+            </div>
+            <div class="book-genres">
+              <span class="genre">Sci-Fi</span>
+              <span class="genre">Fantasy</span>
+              <span class="genre">Adventure</span>
+            </div>
+            <div class="book-buttons">
+              <div class="icon-button" tabindex="0" aria-label="Play The Starlit Quest"><i class="fas fa-play"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Read The Starlit Quest"><i class="fas fa-book-open"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Add The Starlit Quest to library"><i class="fas fa-plus"></i></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="book-card will-change">
+          <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?w=500&h=750&fit=crop" 
+               alt="Midnight Tales" class="book-cover" loading="lazy">
+          <div class="progress-bar"></div>
+          <div class="book-info">
+            <h3 class="book-title text-balance">Midnight Tales</h3>
+            <div class="book-metadata">
+              <span class="match-rate">89% Match</span>
+              <span class="year">2024</span>
+              <span class="maturity-rating">18+</span>
+              <span class="length">320 pages</span>
+            </div>
+            <div class="book-genres">
+              <span class="genre">Horror</span>
+              <span class="genre">Mystery</span>
+            </div>
+            <div class="book-buttons">
+              <div class="icon-button" tabindex="0" aria-label="Play Midnight Tales"><i class="fas fa-play"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Read Midnight Tales"><i class="fas fa-book-open"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Add Midnight Tales to library"><i class="fas fa-plus"></i></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="book-card will-change">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&h=750&fit=crop" 
+               alt="The Lost City" class="book-cover" loading="lazy">
+          <div class="progress-bar"></div>
+          <div class="book-info">
+            <h3 class="book-title text-balance">The Lost City</h3>
+            <div class="book-metadata">
+              <span class="match-rate">92% Match</span>
+              <span class="year">2024</span>
+              <span class="maturity-rating">13+</span>
+              <span class="length">280 pages</span>
+            </div>
+            <div class="book-genres">
+              <span class="genre">Adventure</span>
+              <span class="genre">Action</span>
+            </div>
+            <div class="book-buttons">
+              <div class="icon-button" tabindex="0" aria-label="Play The Lost City"><i class="fas fa-play"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Read The Lost City"><i class="fas fa-book-open"></i></div>
+              <div class="icon-button" tabindex="0" aria-label="Add The Lost City to library"><i class="fas fa-plus"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Releases Row -->
+  <section class="content-section">
+    <div class="section-header"><h2 class="section-title">New Releases</h2><a href="#" class="view-all">See all</a></div>
+    <div class="books-container">
+      <div class="books-row">
+        <div class="book-card"><img class="book-cover" src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=400&h=600&fit=crop" alt="Chasing the Stars book cover"/><div class="book-overlay"><div class="book-actions"><div class="book-action" aria-label="Play"><i class="fas fa-play"></i></div><div class="book-action" aria-label="Add to bookmarks"><i class="fas fa-bookmark"></i></div><div class="book-action" aria-label="Add to cart"><i class="fas fa-shopping-cart"></i></div></div><div class="book-info"><div class="book-title">Chasing the Stars</div><div class="book-author">Alex Chen</div><div class="book-rating">★ 4.8</div></div></div></div>
+        <div class="book-card"><img class="book-cover" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400&h=600&fit=crop" alt="Beneath Deep book cover"/><div class="book-overlay"><div class="book-actions"><div class="book-action" aria-label="Play"><i class="fas fa-play"></i></div><div class="book-action" aria-label="Add to bookmarks"><i class="fas fa-bookmark"></i></div><div class="book-action" aria-label="Add to cart"><i class="fas fa-shopping-cart"></i></div></div><div class="book-info"><div class="book-title">Beneath Deep</div><div class="book-author">Mira Sung</div><div class="book-rating">★ 4.6</div></div></div></div>
+        <div class="book-card"><img class="book-cover" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=600&fit=crop" alt="The Lost City book cover"/><div class="book-overlay"><div class="book-actions"><div class="book-action" aria-label="Play"><i class="fas fa-play"></i></div><div class="book-action" aria-label="Add to bookmarks"><i class="fas fa-bookmark"></i></div><div class="book-action" aria-label="Add to cart"><i class="fas fa-shopping-cart"></i></div></div><div class="book-info"><div class="book-title">The Lost City</div><div class="book-author">R.K. Devon</div><div class="book-rating">★ 4.7</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Content -->
+  <section class="upload-section">
+    <div class="upload-header"><h2 class="upload-title">Share Your Content</h2><p class="upload-subtitle">Upload your books, videos, or audiobooks to share with our community of readers and creators.</p></div>
+    <form class="upload-form" onsubmit="event.preventDefault(); showToast('Upload queued!');">
+      <div id="file-upload" class="file-upload" role="button" tabindex="0" aria-label="File upload area">
+        <i class="fas fa-cloud-upload-alt upload-icon" aria-hidden="true"></i>
+        <div class="upload-text">Click to upload or drag & drop</div>
+        <div class="upload-hint">PDF, EPUB, MP4 up to 500MB</div>
+        <input id="file-input" type="file" hidden />
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" for="title">Title</label><input id="title" class="form-input" placeholder="Enter title" required /></div>
+        <div class="form-group"><label class="form-label" for="author">Author/Creator</label><input id="author" class="form-input" placeholder="Enter author or creator" required /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" for="category">Category</label><select id="category" class="form-select"><option>Book</option><option>Video</option><option>Audiobook</option></select></div>
+        <div class="form-group"><label class="form-label" for="genre">Genre</label><input id="genre" class="form-input" placeholder="e.g. Fantasy" required /></div>
+      </div>
+      <div class="form-group"><label class="form-label" for="description">Description</label><textarea id="description" class="form-textarea" placeholder="Tell readers what your content is about…" required></textarea></div>
+      <div class="form-actions"><button class="btn-cancel" type="reset">Cancel</button><button class="btn-submit" type="submit">Submit</button></div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-column"><h4>Browse</h4><a href="#">Home</a><a href="#">Library</a><a href="#">Genres</a><a href="#">New & Popular</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+        <div class="footer-column"><h4>Help</h4><a href="#">Support</a><a href="#">FAQ</a><a href="#">Community</a><a href="#">Accessibility</a></div>
+        <div class="footer-column"><h4>Legal</h4><a href="#">Terms of Use</a><a href="#">Privacy Policy</a><a href="#">Cookie Preferences</a><a href="#">Content Guidelines</a><a href="#">Copyright Notice</a></div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 MANGU PUBLISHING. All rights reserved. | The ultimate destination for book lovers worldwide.</div>
+    </div>
+  </footer>
+
+  <!-- Notifications container -->
+  <div id="notificationCenter" class="notification-center"></div>
+  
+  <!-- Accessibility tools -->
+  <div class="accessibility-tools">
+    <button id="accessibilityBtn" class="accessibility-btn" title="Accessibility options" aria-label="Accessibility options"><i class="fas fa-universal-access"></i></button>
+    <div id="accessibilityPanel" class="accessibility-panel">
+      <div class="accessibility-option"><div class="accessibility-label">Text size</div><div class="text-size-buttons"><button class="text-size-btn" data-scale="0.95" aria-label="Decrease text size">A-</button><button class="text-size-btn active" data-scale="1" aria-label="Normal text size">A</button><button class="text-size-btn" data-scale="1.1" aria-label="Increase text size">A+</button></div></div>
+      <div class="accessibility-option"><div class="accessibility-label">High contrast</div><button id="contrastToggle" class="text-size-btn" aria-pressed="false">HC</button></div>
+    </div>
+  </div>
+
+  <script src="enhancements.js"></script>
+</body>
+</html>
