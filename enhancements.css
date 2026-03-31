@@ -1,0 +1,337 @@
+
+/* MANGU PUBLISHING ENHANCEMENTS */
+/* Add this link tag in your head after your main styles: */
+/* <link rel="stylesheet" href="enhancements.css"> */
+
+/* 1. Premium text effects */
+.premium-text {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 20%, #ff6b6b 40%, #8a2be2 60%, #0073e6 80%, #4ecdc4 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShine 8s ease-in-out infinite;
+}
+
+@keyframes textShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 2. Text balancing for better readability */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* 3. Performance helper classes */
+.will-change {
+  will-change: transform, opacity;
+}
+
+/* 4. Premium button enhancements */
+.premium-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.premium-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.premium-btn:hover::before {
+  left: 100%;
+}
+
+/* 5. Enhanced focus states for accessibility */
+.book-card:focus-within {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
+/* 6. Premium scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--accent-orange), #cc5500);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--netflix-dark);
+}
+
+/* 7. Premium selection color */
+::selection {
+  background: var(--accent-orange);
+  color: white;
+}
+
+/* 8. Premium image loading effect */
+img:not([loaded]) {
+  filter: blur(10px);
+  transition: filter 0.5s ease;
+}
+
+img[loaded] {
+  filter: blur(0);
+}
+
+/* 9. Premium backdrop for modals */
+.auth-modal::before,
+.viewer-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+/* 10. Premium reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .premium-text {
+    animation: none;
+  }
+}
+
+/* 11. Smoother animations */
+.hero-title, .hero-subtitle, .hero-cta {
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.hero-title { animation-delay: 0.2s; }
+.hero-subtitle { animation-delay: 0.5s; }
+.hero-cta { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 12. Premium hover effects */
+.book-card:hover .book-cover {
+  transform: scale(1.05);
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 13. Premium glow effect for featured section */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+  transform: rotate(30deg);
+  animation: shimmer 8s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+}
+
+/* 14. Premium loading states */
+.skeleton {
+  background: linear-gradient(90deg, #2a2a2a 0%, #2f2f2f 50%, #2a2a2a 100%);
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s infinite;
+  border-radius: var(--border-radius);
+}
+
+@keyframes skeletonLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 15. Premium error state */
+.error-graphic {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  background: radial-gradient(circle, var(--netflix-dark) 40%, transparent 41%),
+              conic-gradient(var(--netflix-red) 0% 20%, var(--netflix-gray) 20% 100%);
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 10s linear infinite;
+}
+
+.error-graphic::before {
+  content: '⚠️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  background: var(--netflix-black);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 16. Premium transitions for theme switching */
+body, button, input, select, textarea {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* 17. Premium grid layout for books */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* 18. Premium print styles */
+@media print {
+  .hero-cta,
+  .header-actions,
+  .featured-actions,
+  .footer-column:last-child {
+    break-inside: avoid;
+  }
+  
+  .book-card {
+    break-inside: avoid;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 19. Premium dark mode enhancements */
+[data-theme="dark"] .book-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .book-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 20. Enhanced button interactions */
+.btn-read:hover,
+.btn-watch:hover,
+.btn-library:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* 21. Premium focus ring consistency */
+*:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* 22. Enhanced carousel animations */
+.carousel-track {
+  will-change: transform;
+}
+
+/* 23. Premium notification animations */
+.notification {
+  animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* 24. Enhanced accessibility features */
+.user-tabbing *:focus {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* 25. Premium micro-interactions */
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+.hero-cta:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* 26. Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  .icon-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .carousel-nav {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* 27. Premium loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: var(--accent-orange);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 28. Enhanced form interactions */
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  transform: scale(1.02);
+}
+
+/* 29. Premium card hover states */
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+}
+
+/* 30. Enhanced typography */
+.hero-title {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.book-title {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
